@@ -1,0 +1,65 @@
+from qiskit import QuantumCircuit, Aer, execute
+from qiskit.visualization import plot_histogram
+import numpy as np
+
+# Grover's algorithm for 2 qubits (searching over 4 items)
+def grovers_algorithm(target):
+    # Initialize 2-qubit quantum circuit
+    n = 2
+    qc = QuantumCircuit(n, n)
+    
+    # Apply Hadamard gates to create superposition
+    qc.h(range(n))
+    
+    # Number of iterations (optimal for 2 qubits is ~sqrt(4) = 2)
+    iterations = 1
+    
+    # Oracle for the target state (e.g., |11> for target=3)
+    def oracle(qc, target):
+        # Convert target to binary for 2 qubits
+        binary = format(target, f'0{n}b')
+        # Apply X gates to qubits where target has 0
+        for i, bit in enumerate(reversed(binary)):
+            if bit == '0':
+                qc.x(i)
+        # Apply multi-controlled Z gate (for 2 qubits, this is CZ)
+        qc.cz(0, 1)
+        # Undo X gates
+        for i, bit in enumerate(reversed(binary)):
+            if bit == '0':
+                qc.x(i)
+    
+    # Diffusion operator (inversion about the mean)
+    def diffuser(qc):
+        qc.h(range(n))
+        qc.x(range(n))
+        qc.cz(0, 1)
+        qc.x(range(n))
+        qc.h(range(n))
+    
+    # Apply Grover iteration
+    for _ in range(iterations):
+        oracle(qc, target)
+        diffuser(qc)
+    
+    # Measure qubits
+    qc.measure(range(n), range(n))
+    
+    return qc
+
+# Run the circuit
+target_state = 3  # Searching for state |11> (decimal 3)
+circuit = grovers_algorithm(target_state)
+
+# Simulate using Qiskit Aer
+simulator = Aer.get_backend('qasm_simulator')
+job = execute(circuit, simulator, shots=1024)
+result = job.result()
+counts = result.get_counts()
+
+# Print results
+print(f"Search results for target state |{format(target_state, f'0{2}b')}>")
+print(counts)
+
+# Optional: Visualize results
+# plot_histogram(counts).show()
