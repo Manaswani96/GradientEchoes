@@ -1,0 +1,48 @@
+from qiskit import QuantumCircuit, Aer, execute
+from qiskit.visualization import plot_histogram
+
+# Deutsch-Jozsa algorithm for 2 qubits
+def deutsch_jozsa(function_type='balanced'):
+    # Initialize 3-qubit circuit (2 input qubits + 1 ancilla)
+    n = 2
+    qc = QuantumCircuit(n + 1, n)
+    
+    # Prepare ancilla qubit in |1> state
+    qc.x(n)
+    qc.h(n)
+    
+    # Apply Hadamard gates to all input qubits
+    qc.h(range(n))
+    
+    # Oracle for constant or balanced function
+    if function_type == 'constant':
+        # Constant function: f(x) = 0 or 1 (here we choose f(x) = 1)
+        qc.x(n)
+    else:
+        # Balanced function: f(x) = x_0 XOR x_1
+        qc.cx(0, n)
+        qc.cx(1, n)
+    
+    # Apply Hadamard gates to input qubits again
+    qc.h(range(n))
+    
+    # Measure input qubits
+    qc.measure(range(n), range(n))
+    
+    return qc
+
+# Run the circuit for a balanced function
+circuit = deutsch_jozsa(function_type='balanced')
+
+# Simulate using Qiskit Aer
+simulator = Aer.get_backend('qasm_simulator')
+job = execute(circuit, simulator, shots=1024)
+result = job.result()
+counts = result.get_counts()
+
+# Print results
+print("Deutsch-Jozsa results for balanced function:")
+print(counts)
+
+# Optional: Visualize results
+# plot_histogram(counts).show()
