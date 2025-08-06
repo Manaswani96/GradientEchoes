@@ -1,0 +1,53 @@
+from qiskit import QuantumCircuit, Aer, execute
+from qiskit.visualization import plot_histogram
+import numpy as np
+
+# Quantum Phase Estimation for a 2-qubit counting register
+def quantum_phase_estimation():
+    # 2 counting qubits + 1 eigenstate qubit
+    n_count = 2
+    qc = QuantumCircuit(n_count + 1, n_count)
+    
+    # Prepare eigenstate |1> for T gate (eigenvalue e^(iπ/4))
+    qc.x(n_count)
+    
+    # Apply Hadamard gates to counting qubits
+    qc.h(range(n_count))
+    
+    # Apply controlled unitary operations (T gate)
+    for i in range(n_count):
+        # T gate has phase π/4, apply 2^i times
+        for _ in range(2**i):
+            qc.cp(np.pi/4, i, n_count)  # Controlled-T gate
+    
+    # Apply inverse Quantum Fourier Transform
+    def inverse_qft(qc, n):
+        for i in range(n//2):
+            qc.swap(i, n-1-i)
+        for i in range(n):
+            for j in range(i):
+                qc.cp(-np.pi/float(2**(i-j)), j, i)
+            qc.h(i)
+    
+    inverse_qft(qc, n_count)
+    
+    # Measure counting qubits
+    qc.measure(range(n_count), range(n_count))
+    
+    return qc
+
+# Run the circuit
+circuit = quantum_phase_estimation()
+
+# Simulate using Qiskit Aer
+simulator = Aer.get_backend('qasm_simulator')
+job = execute(circuit, simulator, shots=1024)
+result = job.result()
+counts = result.get_counts()
+
+# Print results
+print("Quantum Phase Estimation results (phase π/4):")
+print(counts)
+
+# Optional: Visualize results
+# plot_histogram(counts).show()
