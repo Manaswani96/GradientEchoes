@@ -1,0 +1,38 @@
+import numpy as np
+
+def nelder_mead(f, x_start, step=0.1, tol=1e-6, max_iter=1000):
+    n = len(x_start)
+    simplex = np.tile(x_start, (n+1, 1))
+    for i in range(n):
+        simplex[i+1, i] += step  # Initial simplex
+    scores = np.array([f(p) for p in simplex])
+    
+    for _ in range(max_iter):
+        idx = np.argsort(scores)
+        simplex, scores = simplex[idx], scores[idx]
+        if np.std(scores) < tol:
+            break
+        
+        centroid = np.mean(simplex[:-1], axis=0)
+        reflected = 2 * centroid - simplex[-1]
+        fr = f(reflected)
+        
+        if fr < scores[0]:  # Expand
+            expanded = 3 * centroid - 2 * simplex[-1]
+            fe = f(expanded)
+            simplex[-1] = expanded if fe < fr else reflected
+            scores[-1] = min(fe, fr)
+        elif fr < scores[-2]:  # Accept reflect
+            simplex[-1], scores[-1] = reflected, fr
+        else:  # Contract or shrink
+            contracted = (centroid + simplex[-1]) / 2
+            fc = f(contracted)
+            if fc < scores[-1]:
+                simplex[-1], scores[-1] = contracted, fc
+            else:  # Shrink
+                simplex[1:] = (simplex[1:] + simplex[0]) / 2
+                scores[1:] = np.array([f(p) for p in simplex[1:]])
+    
+    return simplex[0], scores[0]
+
+# Example: Use on Rosenbrock f(x,y) = (1-x)^2 + 100*(y-x^2)^2
