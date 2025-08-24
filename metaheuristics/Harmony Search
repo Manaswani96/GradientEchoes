@@ -1,0 +1,21 @@
+import numpy as np
+def harmony_search(f, bounds, n_harmonies=30, max_iter=100, HMCR=0.9, PAR=0.3, bw=0.01):
+    dim = len(bounds)
+    harmony_memory = np.random.uniform([b[0] for b in bounds], [b[1] for b in bounds], (n_harmonies, dim))
+    fitness = np.array([f(x) for x in harmony_memory])
+    for _ in range(max_iter):
+        new_harmony = np.zeros(dim)
+        for i in range(dim):
+            if np.random.rand() < HMCR:
+                new_harmony[i] = harmony_memory[np.random.randint(n_harmonies)][i]
+                if np.random.rand() < PAR:
+                    new_harmony[i] += bw * (np.random.rand() - 0.5)
+            else:
+                new_harmony[i] = np.random.uniform(bounds[i][0], bounds[i][1])
+        new_harmony = np.clip(new_harmony, [b[0] for b in bounds], [b[1] for b in bounds])
+        new_fitness = f(new_harmony)
+        worst_idx = np.argmax(fitness)
+        if new_fitness < fitness[worst_idx]:
+            harmony_memory[worst_idx], fitness[worst_idx] = new_harmony, new_fitness
+    best_idx = np.argmin(fitness)
+    return harmony_memory[best_idx], fitness[best_idx]
