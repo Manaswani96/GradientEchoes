@@ -1,0 +1,42 @@
+import numpy as np
+
+def differential_evolution(f, bounds, pop_size=50, F=0.8, CR=0.9, max_iter=100):
+    """
+    Differential Evolution for minimizing f(x).
+    bounds: List of (min, max) for each dimension.
+    F: Differential weight [0, 2].
+    CR: Crossover probability [0, 1].
+    """
+    dim = len(bounds)
+    population = np.random.uniform([b[0] for b in bounds], [b[1] for b in bounds], (pop_size, dim))
+    scores = np.array([f(ind) for ind in population])
+    best_idx = np.argmin(scores)
+    best, best_score = population[best_idx].copy(), scores[best_idx]
+    
+    for _ in range(max_iter):
+        for i in range(pop_size):
+            # Select three random distinct indices
+            candidates = [idx for idx in range(pop_size) if idx != i]
+            a, b, c = np.random.choice(candidates, 3, replace=False)
+            # Mutation
+            mutant = population[a] + F * (population[b] - population[c])
+            mutant = np.clip(mutant, [b[0] for b in bounds], [b[1] for b in bounds])
+            # Crossover
+            trial = population[i].copy()
+            for j in range(dim):
+                if np.random.rand() < CR or j == np.random.randint(dim):
+                    trial[j] = mutant[j]
+            # Selection
+            trial_score = f(trial)
+            if trial_score <= scores[i]:
+                population[i], scores[i] = trial, trial_score
+                if trial_score < best_score:
+                    best, best_score = trial.copy(), trial_score
+    
+    return best, best_score
+
+# Example: Minimize sphere function f(x) = sum(x^2)
+def sphere(x):
+    return np.sum(x**2)
+
+# Usage: best, score = differential_evolution(sphere, bounds=[(-5, 5)]*2)
