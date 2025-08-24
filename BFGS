@@ -18,3 +18,4 @@ def bfgs(f, grad_f, x0, tol=1e-6, max_iter=100):
         B += np.outer(y, y) / np.dot(y, s) - np.outer(np.dot(B, s), np.dot(s, B)) / np.dot(s, np.dot(B, s))
         g = g_new
     return x
+#Enhance Repo: Benchmark against exact Newton on quadratic problems; include proof of positive definiteness
