@@ -1,0 +1,47 @@
+import numpy as np
+
+def genetic_algorithm(fitness_func, pop_size=50, num_genes=10, generations=100, mutation_rate=0.01, elitism=0.1):
+    # Initialize population (binary chromosomes)
+    population = np.random.randint(0, 2, (pop_size, num_genes))
+    
+    for gen in range(generations):
+        # Evaluate fitness
+        fitness = np.array([fitness_func(ind) for ind in population])
+        elite_count = int(elitism * pop_size)
+        
+        # Elitism: keep top performers
+        elites_idx = np.argsort(fitness)[-elite_count:]  # Assuming maximization
+        elites = population[elites_idx]
+        
+        # Selection: roulette wheel
+        probs = fitness / fitness.sum()
+        selected_idx = np.random.choice(range(pop_size), size=pop_size - elite_count, p=probs)
+        selected = population[selected_idx]
+        
+        # Crossover: single-point for pairs
+        offspring = []
+        for i in range(0, len(selected), 2):
+            if i + 1 < len(selected):
+                cross_point = np.random.randint(1, num_genes - 1)
+                child1 = np.concatenate([selected[i][:cross_point], selected[i+1][cross_point:]])
+                child2 = np.concatenate([selected[i+1][:cross_point], selected[i][cross_point:]])
+                offspring.extend([child1, child2])
+            else:
+                offspring.append(selected[i])
+        
+        # Mutation
+        for child in offspring:
+            for j in range(num_genes):
+                if np.random.rand() < mutation_rate:
+                    child[j] = 1 - child[j]  # Flip bit
+        
+        # New population
+        population = np.vstack([elites, offspring])
+    
+    # Best solution
+    best_idx = np.argmax([fitness_func(ind) for ind in population])
+    return population[best_idx], fitness_func(population[best_idx])
+
+# Example fitness: Maximize sum of bits (toy); decode binary to real via bin_to_float.
+def example_fitness(ind):
+    return np.sum(ind)  # Higher is better
