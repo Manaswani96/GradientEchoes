@@ -3,51 +3,77 @@
 
 _Where Mathematics Meets Implementation_
 
-**GradientEchoes** is a curated collection of optimization algorithms and methods — from classical mathematical formulations to modern quantum-inspired optimization — all implemented in Python. This repository aims to bridge the gap between theory and practice by turning blackboard equations into executable, experimentable code.
+A focused, quality-first Python library for optimization — classical and quantum-ready — built for learners, researchers, and engineers who care about clear math, reproducible results, and readable code.
+If you love math and teaching (same here), this repo is designed to explain algorithms, not just dump implementations. Each algorithm is short, tested, and accompanied by a small demo that shows when and why to use it.
 
 ---
 
 ## 🧭 Purpose
 
-This project is both a learning journey and a technical logbook. It explores optimization techniques taught in academic courses, as well as those independently studied from advanced topics like **Quantum Physics** and **Numerical Methods**.
+**Teaching-first**: every algorithm has a short explanation, a “when to use it” note, and a compact, well-commented implementation. Great for students and instructors.
 
-Whether you're a student, researcher, or curious mind, this repo serves as a guide and reference for real-world implementation of optimization algorithms using Python.
+**Math-respectful**: emphasizes numerical stability, reproducibility, and clear notation — not toy one-liners.
 
----
+Practical & reproducible: small runnable examples (<30s), a consistent minimize API, and unit tests so examples stay useful.
 
-## 🔍 Topics Covered (Work in Progress)
-
-### 📘 Classical Optimization
-- [x] **Steepest Descent**
-- [x] **Conjugate Gradient Method**
-- [ ] **Newton's Method (Basic)**
-- [ ] **Linear Programming Problems (LPP)**
-- [ ] **Simplex Method**
-
-### 🧬 Quantum & Advanced Optimization
-- [ ] **Gradient Descent in Quantum Parameter Spaces**
-- [ ] **Variational Optimization Basics**
-- [ ] **Quantum Approximate Optimization Algorithm (QAOA)** *(planned)*
-- [ ] **Quantum Circuit Training with Cost Functions** *(planned)*
+**Quantum-ready**: classical core stays lightweight. Quantum integrations are optional extras so users opt-in to heavy libraries.
 
 ---
 
-## 🛠️ Tech Stack
+## Project Layout (Work in Progress)
 
-- **Python 3.10+**
-- **Google Colab / Jupyter Notebooks**
-- Libraries:
-  - `numpy`, `matplotlib`, `scipy`
-  - `cvxpy` (for convex/LPP problems)
-  - `qiskit` *(for later quantum modules)*
+```
+gradient-echoes/
+├─ gradient_echoes/             # package
+│  ├─ __init__.py
+│  ├─ core.py                   # Result dataclass + wrapper
+│  ├─ algorithms/
+│  │  ├─ __init__.py
+│  │  ├─ gradient_descent.py
+│  │  ├─ particle_swarm.py
+│  │  ├─ bfgs_wrapper.py
+│  │  └─ metaheuristics/        # grouped advanced algos (move gradually)
+│  └─ quantum/                  # optional, requires extras
+├─ examples/
+│  ├─ classical/                # short runnable scripts (keep <30s)
+│  └─ quantum/                  # optional tutorials
+├─ notebooks/                    # educational visual notebooks
+├─ tests/
+├─ README.md
+├─ pyproject.toml
+└─ .github/workflows/ci.yml
 
+```
+## 🛠️ Design principles & API choices
+
+**Consistent interface**: every optimizer implements minimize(func, x0, grad=None, max_iters=None, callback=None, seed=None) and returns Result. This makes benchmarks and teaching materials trivial to write and compare.
+
+**Small, readable functions**: implementations prioritize clarity. Use vectorized NumPy where helpful — but avoid obscure cleverness.
+
+Reproducibility: RNG seeds where stochasticity exists; deterministic tests included.
+
+Optional heavy deps: quantum libs and scipy are optional extras. Keep the core lean.
 ---
 
-## 🧪 Philosophy
+## Educational content & what you’ll find in each algorithm file
 
-Optimization isn't just math — it's motion.  
-In **GradientEchoes**, every method is treated like a story: from its theoretical roots to how it behaves in code. Equations are not just written, they’re **felt** through each iteration.
+Each algorithms/*.py includes:
 
+short description & pseudocode
+
+one-paragraph “When to use this”
+
+a minimal implementation (readable, commented)
+
+a demo snippet in examples/ showing a real use case (and a plot or 2 if useful)
+
+Example use-cases included in the repo:
+
+PSO on multi-modal toy problems (good for hyperparameter search explanations)
+
+Gradient descent vs BFGS on Rosenbrock (teaches conditioning and step sizes)
+
+VQE wrapper example (quantum demo — requires extras/simulator)
 ---
 
 ## 🗂️ Folder Structure (Planned)
