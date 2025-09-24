@@ -11,5 +11,9 @@ class Result:
     history: List[Tuple[int, float]]  # (iter, value)
 
 def minimize(optimizer, func: Callable, x0, *, grad: Optional[Callable]=None,
-             max_iters: int=1000, callback: Optional[Callable]=None, seed: Optional[int]=None) -> Result:
+             max_iters: Optional[int]=None, callback: Optional[Callable]=None, seed: Optional[int]=None) -> Result:
+    """
+    Simple wrapper that calls an optimizer's minimize method.
+    The optimizer should implement: minimize(func, x0, grad=..., max_iters=..., callback=..., seed=...)
+    """
     return optimizer.minimize(func, x0, grad=grad, max_iters=max_iters, callback=callback, seed=seed)
