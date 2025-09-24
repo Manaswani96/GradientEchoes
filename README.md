@@ -1,98 +1,76 @@
-# GradientEchoes
+# 🌌 Gradient Echoes
 
-
-_Where Mathematics Meets Implementation_
-
-A focused, quality-first Python library for optimization — classical and quantum-ready — built for learners, researchers, and engineers who care about clear math, reproducible results, and readable code.
-If you love math and teaching (same here), this repo is designed to explain algorithms, not just dump implementations. Each algorithm is short, tested, and accompanied by a small demo that shows when and why to use it.
+> Optimization playground where gradients hum, optimizers dance,  
+> and sometimes qubits join the party.
 
 ---
 
-## 🧭 Purpose
-
-**Teaching-first**: every algorithm has a short explanation, a “when to use it” note, and a compact, well-commented implementation. Great for students and instructors.
-
-**Math-respectful**: emphasizes numerical stability, reproducibility, and clear notation — not toy one-liners.
-
-Practical & reproducible: small runnable examples (<30s), a consistent minimize API, and unit tests so examples stay useful.
-
-**Quantum-ready**: classical core stays lightweight. Quantum integrations are optional extras so users opt-in to heavy libraries.
+## ✨ What is this?
+Gradient Echoes is a collection of **classical** and **quantum** optimization algorithms.  
+It’s designed to be:
+- **Beginner-friendly** → clear examples, runnable in 3 steps.
+- **Advanced-ready** → reproducible experiments, configs, benchmarks.
+- **Playful yet structured** → not just code, but *knowledge with code*.
 
 ---
 
-## Project Layout (Work in Progress)
+## 🚀 Quickstart
 
+Clone and run your first optimization in 3 steps:
+
+```bash
+# 1. Clone the repo
+git clone https://github.com/<your-username>/gradient-echoes.git
+cd gradient-echoes
+
+# 2. Install dependencies
+pip install -e .[dev]
+
+Expected output:
+[Hello Gradient] Starting gradient descent on f(x) = (x-3)^2
+Step 0: x=10.0, loss=49.0
+...
+Step N: x≈3.0, loss≈0.0
+```
+📚 Repo structure (simplified)
 ```
 gradient-echoes/
-├─ gradient_echoes/             # package
-│  ├─ __init__.py
-│  ├─ core.py                   # Result dataclass + wrapper
-│  ├─ algorithms/
-│  │  ├─ __init__.py
-│  │  ├─ gradient_descent.py
-│  │  ├─ particle_swarm.py
-│  │  ├─ bfgs_wrapper.py
-│  │  └─ metaheuristics/        # grouped advanced algos (move gradually)
-│  └─ quantum/                  # optional, requires extras
-├─ examples/
-│  ├─ classical/                # short runnable scripts (keep <30s)
-│  └─ quantum/                  # optional tutorials
-├─ notebooks/                    # educational visual notebooks
-├─ tests/
-├─ README.md
-├─ pyproject.toml
-└─ .github/workflows/ci.yml
-
+├── examples/
+│   ├── classical/           # classical optimization demos
+│   ├── quantum/             # quantum optimization demos
+│   └── hello_gradient.py    # your first run example
+├── gradient_echoes/
+│   ├── algorithms/          # core classical algorithms
+│   ├── quantum/             # quantum algorithms
+│   └── utils.py             # helper utilities
+├── tests/                   # unit + smoke tests
+├── notebooks/               # exploratory + tutorials
+├── pyproject.toml           # dependencies & formatting
+└── README.md                # you are here 🚀
 ```
-## 🛠️ Design principles & API choices
+🧩 Examples
 
-**Consistent interface**: every optimizer implements minimize(func, x0, grad=None, max_iters=None, callback=None, seed=None) and returns Result. This makes benchmarks and teaching materials trivial to write and compare.
+Classical: Rosenbrock demo → python examples/classical/rosenbrock_demo.py
 
-**Small, readable functions**: implementations prioritize clarity. Use vectorized NumPy where helpful — but avoid obscure cleverness.
+Quantum: Try VQE or Grover from examples/quantum/
 
-Reproducibility: RNG seeds where stochasticity exists; deterministic tests included.
+Hello world: python examples/hello_gradient.py
 
-Optional heavy deps: quantum libs and scipy are optional extras. Keep the core lean.
----
+🛠 Contributing
 
-## Educational content & what you’ll find in each algorithm file
+We ❤️ contributors!
 
-Each algorithms/*.py includes:
+Check out CONTRIBUTING.md for setup instructions.
 
-short description & pseudocode
+PRs with new optimizers, bugfixes, docs, or tutorials are welcome.
+📜 License
 
-one-paragraph “When to use this”
+MIT License
 
-a minimal implementation (readable, commented)
+🌟 Fun line
 
-a demo snippet in examples/ showing a real use case (and a plot or 2 if useful)
+“Gradient Echoes — where gradients hum and qubits occasionally hum back.”
 
-Example use-cases included in the repo:
 
-PSO on multi-modal toy problems (good for hyperparameter search explanations)
-
-Gradient descent vs BFGS on Rosenbrock (teaches conditioning and step sizes)
-
-VQE wrapper example (quantum demo — requires extras/simulator)
----
-
-## 🗂️ Folder Structure (Planned)
-
-```text
-OptiMystic/
-│
-├── classical/
-│   ├── steepest_descent.ipynb
-│   ├── conjugate_gradient.ipynb
-│   └── lpp_simplex.ipynb
-│
-├── quantum/
-│   ├── quantum_gradient_descent.ipynb
-│   ├── variational_optimization_intro.ipynb
-│   └── qaoa_plans.md
-│
-├── utils/
-│   └── plotting_helpers.py
-│
-├── README.md
-└── LICENSE
+# 3. Run your first demo
+python examples/hello_gradient.py
