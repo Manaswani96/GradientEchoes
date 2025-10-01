@@ -33,12 +33,18 @@ class SPSA:
         for k in range(1, steps + 1):
             ak = self.a / (k ** self.alpha)
             ck = self.c / (k ** self.gamma)
+
             delta = self._rand_delta(x)
             x_plus  = obj.project(x + self._scale(ck, delta))
             x_minus = obj.project(x - self._scale(ck, delta))
+
             f_plus, f_minus = obj.f(x_plus), obj.f(x_minus)
-            gk = (f_plus - f_minus) / (2 * ck) * (1.0 / delta)  # elementwise * (1/delta)
-            x = obj.project(x - self._scale(ak, gk))
+            # central difference; elementwise divide by delta (±1), OK for scalars & arrays
+            gk = (f_plus - f_minus) / (2 * ck) * (1.0 / delta)
+
+            # ✅ BUGFIX: multiply by gradient estimate
+            x = obj.project(x - self._scale(ak, x) * gk)  # self._scale(ak, x) returns scalar or vector of ak
+
             f_curr = obj.f(x)
             row = {"f": float(f_curr), "grad_norm2": 0.0, "lr": float(ak)}
             history.append(row)
