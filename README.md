@@ -1,14 +1,25 @@
-# GradientEchoes
+# 🌌 Gradient Echoes
+> *Classical grit, quantum wit.*  
+Optimization algorithms — both **classical** (SGD, Adam, L-BFGS, etc.) and **quantum-inspired** (QNG, SPSA, QAOA) — unified in one playground.
 
-A playful, small lab for optimization — classical first, quantum later.  
-This repo is a place where I (Mahi) share small demos, clear code, and friendly experiments about optimization.
+![Optimizer Comparison](docs/assets/loss_curves.png)
 
-## Quickstart (10 seconds!)
+---
+
+## ✨ Features
+- 📦 Minimal, educational implementations of:
+  - **Classical**: SGD (with momentum/Nesterov), Adam/AMSGrad, RMSProp, AdaGrad, L-BFGS, Nelder–Mead, SPSA
+  - **Quantum**: Quantum Natural Gradient, QAOA loop, Parameter-Shift rule, Quantum SPSA
+- 🧮 Clean abstractions: `Objective`, `Oracle`, `Constraint`, `Callback`, `Schedule`
+- 📈 Visualizations: loss curves, 3D surfaces, optimizer trajectories
+- 🧪 Fully tested with `pytest`, pre-commit linting, CI
+
+---
+
+## 🚀 Quickstart
+
+Install locally:
 ```bash
-# create & activate a venv (optional but recommended)
-python -m venv .venv
-source .venv/bin/activate   # Windows: .venv\Scripts\activate
-
-# install editable package
-pip install -e .
-python examples/hello_gradient.py
+git clone https://github.com/<you>/gradient-echoes.git
+cd gradient-echoes
+pip install -e ".[dev]"
