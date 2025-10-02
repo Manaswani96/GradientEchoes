@@ -3,7 +3,8 @@
 Optimization algorithms — both **classical** (SGD, Adam, L-BFGS, etc.) and **quantum-inspired** (QNG, SPSA, QAOA) — unified in one playground.
 
 
-I built this repo because I _love optimization_ — not just as code, but as math, motion, and ideas.When I was working through problems in class and on my own, I realized I wanted a single place where all the classical and quantum optimization tricks could live together.Gradient Echoes is that place. A geeky playground, a toolkit, and (hopefully) a helpful reference for anyone who shares the same obsession.
+I built this repo because I _love optimization_ — not just as code, but as math, motion, and ideas.When I was working through problems in class and on my own, I realized I wanted a single place where all the classical and quantum optimization tricks could live together.Gradient Echoes is that place.<br>
+A geeky playground, a toolkit, and (hopefully) a helpful reference for anyone who shares the same obsession.
 
 Why this repo?
 --------------
