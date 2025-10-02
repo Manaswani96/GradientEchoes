@@ -1,0 +1,43 @@
+# TO USE THIS 
+#At the top of any plotting script, add:
+# import matplotlib.pyplot as plt
+# plt.style.use("docs/assets/style.mplstyle")
+
+
+# Fonts
+font.family: DejaVu Sans
+font.size: 12
+axes.titlesize: 14
+axes.labelsize: 12
+
+# Lines
+lines.linewidth: 2
+lines.markersize: 6
+
+# Grid
+axes.grid: True
+grid.linestyle: --
+grid.alpha: 0.5
+
+# Legend
+legend.frameon: False
+legend.fontsize: 11
+
+# Figure
+figure.figsize: 7, 5
+figure.dpi: 120
+
+# Color cycle (bright, modern palette)
+axes.prop_cycle: cycler('color', [
+    '#1f77b4', # blue
+    '#ff7f0e', # orange
+    '#2ca02c', # green
+    '#d62728', # red
+    '#9467bd', # purple
+    '#8c564b', # brown
+    '#e377c2', # pink
+    '#7f7f7f', # gray
+    '#bcbd22', # lime
+    '#17becf'  # cyan
+])
+
