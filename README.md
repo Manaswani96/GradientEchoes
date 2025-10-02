@@ -66,21 +66,28 @@ Quick Install
 -------------
 
 Clone and install:
-
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   git clone https://github.com//gradient-echoes.git  cd gradient-echoes  python -m venv .venv  source .venv/bin/activate   # or .venv\Scripts\Activate.ps1 on Windows  pip install -e ".[dev]"   `
-
+```
+git clone https://github.com/<you>/gradient-echoes.git
+cd gradient-echoes
+python -m venv .venv
+source .venv/bin/activate   # or .venv\Scripts\Activate.ps1 on Windows
+pip install -e ".[dev]"
+```
 Optional extras:
-
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   pip install numpy matplotlib plotly   `
+```
+pip install numpy matplotlib plotly
+```
 
 First Run
 ---------
 
 Run a quick demo:
-
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   python -m examples.hello_gradient   `
-
-Expected output:SGD -> x\* ≈ 3.00, f\* ≈ 0.0Adam -> x\* ≈ 3.00, f\* ≈ 0.0
+```
+python -m examples.hello_gradient
+```
+Expected output:<br>
+SGD -> x\* ≈ 3.00, f\* ≈ 0.0<br>
+Adam -> x\* ≈ 3.00, f\* ≈ 0.0
 
 Visual Showcase
 ---------------
@@ -111,30 +118,44 @@ Running Specific Optimizers
 Want just one algorithm? Copy-paste it.
 
 Example: SPSA on a toy problem:
+```
+from gradient_echoes.core.objective import Objective
+from gradient_echoes.classical import SPSA
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   from gradient_echoes.core.objective import Objective  from gradient_echoes.classical import SPSA  f = lambda x: (x - 2.0)**2  g = lambda x: 2*(x - 2.0)  obj = Objective(f, g, init=0.0)  opt = SPSA(a=0.2, c=0.1)  x_star, hist = opt.minimize(obj, steps=300)  print("x*", x_star, "f*", hist[-1]["f"])   `
+f = lambda x: (x - 2.0)**2
+g = lambda x: 2*(x - 2.0)
+obj = Objective(f, g, init=0.0)
 
+opt = SPSA(a=0.2, c=0.1)
+x_star, hist = opt.minimize(obj, steps=300)
+print("x*", x_star, "f*", hist[-1]["f"])
+```
 Or run via helper script:
-
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   python scripts/run_single_optimizer.py --alg spsa --steps 300   `
+```
+python scripts/run_single_optimizer.py --alg spsa --steps 300
+```
 
 Reproducing Graphs
 ------------------
 
 Every figure in docs/assets/ can be regenerated from a script in scripts/:
-
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   python scripts/plot_loss_curves.py  python scripts/plot_rosenbrock_3d.py  python scripts/plot_rosen_contour.py   `
-
+```
+python scripts/plot_loss_curves.py
+python scripts/plot_rosenbrock_3d.py
+python scripts/plot_rosen_contour.py
+```
 Dependencies: numpy, matplotlib.That way, the repo stays reproducible and tweakable.
 
 Testing
 -------
 
 Run the tests:
+```
+pytest
+```
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   pytest   `
-
-They check convergence behavior, schedules, SPSA stability, etc.Not perfect convergence — just that things behave sensibly.
+They check convergence behavior, schedules, SPSA stability, etc.<br>
+Not perfect convergence — just that things behave sensibly.
 
 Roadmap
 -------
@@ -151,7 +172,8 @@ Roadmap
 Contributing
 ------------
 
-Pull requests welcome!To add something new:
+Pull requests welcome!<br>
+To add something new:
 
 *   put your optimizer in gradient\_echoes/classical/ or quantum/
     
@@ -168,6 +190,8 @@ MIT License © 2025
 Final Note
 ----------
 
-This repo is my way of sharing the joy of math, code, and optimization.If you’re a student, a researcher, or just a curious geek: welcome aboard.Clone, tweak, run the plots, and maybe invent your own algorithm.
+This repo is my way of sharing the joy of math, code, and optimization.<br>
+If you’re a student, a researcher, or just a curious geek: welcome aboard.<br>
+Clone, tweak, run the plots, and maybe invent your own algorithm.
 
 Gradient Echoes is meant to be alive — every optimizer leaves echoes in the landscape.
