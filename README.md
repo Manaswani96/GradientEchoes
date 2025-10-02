@@ -192,6 +192,6 @@ Final Note
 
 This repo is my way of sharing the joy of math, code, and optimization.<br>
 If you’re a student, a researcher, or just a curious geek: welcome aboard.<br>
-Clone, tweak, run the plots, and maybe invent your own algorithm.
+Clone, tweak, run the plots, and maybe invent your own algorithm ✨!
 
 Gradient Echoes is meant to be alive — every optimizer leaves echoes in the landscape.
