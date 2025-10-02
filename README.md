@@ -98,19 +98,19 @@ Optimization is not just numbers — it’s trajectories, valleys, echoes in a l
 
 Different optimizers racing down the same valley.Notice how momentum, adaptivity, and scaling all create distinct learning curves.
 
-\[placeholder: loss\_curves.png\]
+![Loss Curves](docs/assets/loss_curves.png)
 
 ### Rosenbrock 3D Landscape
 
 The infamous banana valley.Watch Adam weave through the curved canyon until it reaches the global minimum.
 
-\[placeholder: rosenbrock\_adam\_3d.png\]
+![Rosenbrock](docs/assets/rosenbrock_adam_3d.png)
 
 ### Contour Map with Trajectory
 
 A contour map gives intuition in 2D.Here, the optimizer’s path (red markers) shows how it zig-zags and settles inside the narrow valley.
 
-\[placeholder: rosenbrock\_contour\_traj.png\]
+![Contour Map](docs/assets/rosenbrock_contour_traj.png)
 
 Running Specific Optimizers
 ---------------------------
