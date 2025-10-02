@@ -1,24 +1,61 @@
-# Python cache
+# Byte-compiled / cache
 __pycache__/
 *.py[cod]
-*.egg-info/
+*$py.class
 
-# pytest
-.pytest_cache/
-
-# virtualenv
+# Virtual environments
 .venv/
-env/
 venv/
-
-# Jupyter
+ENV/
+env/
 .ipynb_checkpoints/
 
-# plots/results
-*.png
-*.jpg
-*.jpeg
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+.eggs/
 
-# OS junk
+# Logs
+*.log
+
+# Test / coverage
+.coverage
+htmlcov/
+.pytest_cache/
+
+# IDE / editor
+.vscode/
+.idea/
 .DS_Store
-Thumbs.db
+
+# Jupyter notebooks
+*.ipynb_checkpoints
+
+# Results / temporary outputs
+*.npy
+*.npz
+*.pkl
+*.h5
+*.ckpt
+*.out
+*.tmp
+
+# Large raw data
+data/
+datasets/
+
+# Plots / figures generated during runs
+*.png
+*.pdf
+*.svg
+*.gif
+
+# --- Exception: keep curated docs/assets
+!docs/assets/*.png
+!docs/assets/*.svg
+!docs/assets/*.gif
+!docs/assets/*.pdf
+
+# Ignore notebooks outputs, but allow examples/
+notebooks/.ipynb_checkpoints/
